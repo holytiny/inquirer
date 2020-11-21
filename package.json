@@ -1,0 +1,30 @@
+{
+  "name": "@holytiny/inquirer",
+  "version": "0.0.0",
+  "description": "A cli to init project vars",
+  "main": "./lib/index.js",
+  "scripts": {
+    "start": "launch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holytiny/inquirer.git"
+  },
+  "keywords": [
+    "gitops",
+    "init",
+    "environment",
+    "variable"
+  ],
+  "author": "sake",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/holytiny/inquirer/issues"
+  },
+  "homepage": "https://github.com/holytiny/inquirer#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "script-launcher": "1.30.0"
+  }
+}

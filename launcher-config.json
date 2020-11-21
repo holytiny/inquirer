@@ -1,0 +1,127 @@
+{
+  "scripts": {
+    "cz": [
+      "git add -A",
+      "git cz"
+    ],
+    "branch:$name": [
+      "git pull --rebase origin main",
+      "git checkout -b $name",
+      "git branch"
+    ],
+    "sync": [
+      "git fetch -p origin",
+      "git switch main",
+      "git pull --rebase origin main"
+    ],
+    "feature:$name": [
+      "sync",
+      "git branch feature/$name main",
+      "git switch feature/$name",
+      "git branch"
+    ],
+    "df:$name": "delete-feature:$name",
+    "delete-feature:$name": [
+      "sync",
+      "git branch -d feature/$name",
+      "git branch"
+    ],
+    "ff:$name": "finish-feature:$name",
+    "finish-feature:$name": [
+      "sync",
+      "git switch feature/$name",
+      "git rebase main",
+      "mr-featrue:$name"
+    ],
+    "mr-featrue:$name": [
+      "sync",
+      "git switch feature/$name",
+      "git rebase main",
+      "gh pr create -f --base main",
+      "git branch"
+    ],
+    "hotfix:$name": [
+      "git switch main",
+      "git pull --rebase origin main",
+      "git branch hotfix/$name main",
+      "git switch hotfix/$name",
+      "git branch"
+    ],
+    "dh:$name": "delete-hotfix:$name",
+    "delete-hotfix:$name": [
+      "git fetch -p origin",
+      "git switch main",
+      "git pull --rebase origin main",
+      "git branch -d hotfix/$name",
+      "git branch"
+    ],
+    "fh:$name": "finish-hotfix:$name",
+    "finish-hotfix:$name": [
+      "git switch hotfix/$name",
+      "git rebase main",
+      "mr-hotfix:$name"
+    ],
+    "mr-hotfix:$name": [
+      "git fetch -p origin",
+      "git switch main",
+      "git pull --rebase origin main",
+      "git switch hotfix/$name",
+      "git rebase main",
+      "gh pr create -f --base main",
+      "git branch"
+    ],
+    "verify": [
+      "git add -A",
+      "git cz --allow-empty",
+      "git switch main",
+      "git pull --rebase origin main",
+      "git switch develop",
+      "git rebase main",
+      "git push -f origin $(git branch --show-current)"
+    ],
+    "vf:$name": [
+      "verify-feature$name"
+    ],
+    "verify-feature$name": [
+      "git switch main",
+      "git pull --rebase origin main",
+      "git switch feature/$name",
+      "git rebase main",
+      "git push -f origin $(git branch --show-current)"
+    ],
+    "vh:$name": [
+      "verify-hotfix:$name"
+    ],
+    "verify-hotfix:$name": [
+      "git add -A",
+      "git cz --allow-empty",
+      "git switch main",
+      "git pull --rebase origin main",
+      "git switch hotfix/$name",
+      "git rebase main",
+      "git push -f origin $(git branch --show-current)"
+    ],
+    "premajor": "version:premajor",
+    "major": "version:major",
+    "preminor": "version:preminor",
+    "minor": "version:minor",
+    "prepatch": "version:prepatch",
+    "patch": "version:patch",
+    "version:$revision": [
+      "git fetch -p origin",
+      "git switch main",
+      "git pull --rebase origin main",
+      "npm version $revision",
+      "git push --follow-tags"
+    ],
+    "alpha": "prerelease:alpha",
+    "beta": "prerelease:beta",
+    "prerelease:$preid": [
+      "git fetch -p origin",
+      "git switch main",
+      "git pull --rebase origin main",
+      "npm version prerelease --preid=$preid",
+      "git push --follow-tags"
+    ]
+  }
+}
