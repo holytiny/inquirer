@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const project = path.join(__dirname, '../tsconfig.json');
+const dev = fs.existsSync(project);
+
+if (dev) {
+  require('ts-node').register({project});
+}
+
+new Promise(async (resolve, reject) => {
+  // do a thing, possibly async, then…
+  const retCode =  await require(`../${dev ? 'src' : 'lib'}`).run(process.argv);
+  if (0 === retCode) {
+    console.log('inquirer succeed!');
+    resolve(0);
+  }  
+  else {
+    reject(new Error(`${retCode}`));
+  }
+})
+.catch( error => {
+  console.log(`inquirer quit: `, error.message);
+})

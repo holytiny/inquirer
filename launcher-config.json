@@ -20,10 +20,16 @@
       "git switch feature/$name",
       "git branch"
     ],
-    "df:$name": "delete-feature:$name",
-    "delete-feature:$name": [
-      "sync",
-      "git branch -d feature/$name",
+    "vf:$name": [
+      "verify-feature:$name"
+    ],
+    "verify-feature:$name": [
+      "git switch main",
+      "git pull --rebase origin main",
+      "git switch feature/$name",
+      "git rebase main",
+      "git pull --rebase origin feature/$name",
+      "git push origin $(git branch --show-current)",
       "git branch"
     ],
     "ff:$name": "finish-feature:$name",
@@ -31,75 +37,53 @@
       "sync",
       "git switch feature/$name",
       "git rebase main",
-      "mr-featrue:$name"
+      "mr-feature:$name"
     ],
-    "mr-featrue:$name": [
+    "mr-feature:$name": [
       "sync",
       "git switch feature/$name",
       "git rebase main",
       "gh pr create -f --base main",
       "git branch"
     ],
-    "hotfix:$name": [
-      "git switch main",
-      "git pull --rebase origin main",
-      "git branch hotfix/$name main",
-      "git switch hotfix/$name",
+    "df:$name": "delete-feature:$name",
+    "delete-feature:$name": [
+      "sync",
+      "git branch -D feature/$name",
       "git branch"
     ],
-    "dh:$name": "delete-hotfix:$name",
-    "delete-hotfix:$name": [
-      "git fetch -p origin",
+    "hotfix:$name:$version": [
       "git switch main",
       "git pull --rebase origin main",
-      "git branch -d hotfix/$name",
+      "git switch -c hotfix/$name $version",
       "git branch"
-    ],
-    "fh:$name": "finish-hotfix:$name",
-    "finish-hotfix:$name": [
-      "git switch hotfix/$name",
-      "git rebase main",
-      "mr-hotfix:$name"
-    ],
-    "mr-hotfix:$name": [
-      "git fetch -p origin",
-      "git switch main",
-      "git pull --rebase origin main",
-      "git switch hotfix/$name",
-      "git rebase main",
-      "gh pr create -f --base main",
-      "git branch"
-    ],
-    "verify": [
-      "git add -A",
-      "git cz --allow-empty",
-      "git switch main",
-      "git pull --rebase origin main",
-      "git switch develop",
-      "git rebase main",
-      "git push -f origin $(git branch --show-current)"
-    ],
-    "vf:$name": [
-      "verify-feature$name"
-    ],
-    "verify-feature$name": [
-      "git switch main",
-      "git pull --rebase origin main",
-      "git switch feature/$name",
-      "git rebase main",
-      "git push -f origin $(git branch --show-current)"
     ],
     "vh:$name": [
       "verify-hotfix:$name"
     ],
     "verify-hotfix:$name": [
-      "git add -A",
-      "git cz --allow-empty",
-      "git switch main",
-      "git pull --rebase origin main",
       "git switch hotfix/$name",
-      "git rebase main",
-      "git push -f origin $(git branch --show-current)"
+      "git pull --rebase origin hotfix/$name",
+      "git push origin $(git branch --show-current)",
+      "git branch"
+    ],
+    "fh:$name": "finish-hotfix:$name",
+    "finish-hotfix:$name": [
+      "sync",
+      "git switch hotfix/$name",
+      "mr-hotfix:$name"
+    ],
+    "mr-hotfix:$name": [
+      "sync",
+      "git switch hotfix/$name",
+      "gh pr create -f --base main",
+      "git branch"
+    ],
+    "dh:$name": "delete-hotfix:$name",
+    "delete-hotfix:$name": [
+      "sync",
+      "git branch -D hotfix/$name",      
+      "git branch"
     ],
     "premajor": "version:premajor",
     "major": "version:major",
