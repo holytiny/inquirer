@@ -11,7 +11,7 @@ if (dev) {
 
 new Promise(async (resolve, reject) => {
   // do a thing, possibly async, then…
-  const retCode =  await require(`../${dev ? 'src' : 'lib'}`).run(process.argv);
+  const retCode =  await require(`../${dev ? 'src' : 'lib'}`).run();
   if (0 === retCode) {
     console.log('inquirer succeed!');
     resolve(0);
