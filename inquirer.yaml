@@ -1,0 +1,27 @@
+inquirers:
+- output: devspace.json
+  questions:
+  - type: select
+    name: DEVELOPER_NAME
+    message: Who is developing?
+    choices:
+    - name: sake
+      message: sake
+      value: sake
+    - name: zzxiongfan
+      message: zzxiongfan
+      value: zzxiongfan
+    - name: xidianzyf
+      message: xidianzyf
+      value: xidianzyf
+  - type: multiselect
+    name: DEVELOP_IMAGES
+    message: Which container would you like to develop?
+    choices:
+    - name: vdevice
+      value: yes
+    - name: backend
+      value: yes
+    - name: frontend
+      value: yes
+
