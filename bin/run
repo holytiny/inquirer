@@ -23,8 +23,7 @@ new Promise(async (resolve, reject) => {
   if (0 === retCode) {
     console.log('inquirer succeed!');
     resolve(0);
-  }  
-  else {
+  } else {
     reject(new Error(`${retCode}`));
   }
 })
