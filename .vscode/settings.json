@@ -3,5 +3,6 @@
         "multiselect",
         "tslog",
         "vdevice"
-    ]
+    ],
+    "javascript.suggestionActions.enabled": true
 }

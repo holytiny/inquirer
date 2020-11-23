@@ -1,17 +1,25 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const project = path.join(__dirname, '../tsconfig.json');
-const dev = fs.existsSync(project);
+const { Command } = require('commander');
 
-if (dev) {
-  require('ts-node').register({project});
+const packageJson = require('../package.json');
+
+function increaseVerbosity(_, previous) {
+  return previous + 1;
 }
+
+const program = new Command();
+program
+.version(packageJson.version)
+.option('-f, --force', 'force to generate output json files')
+.option('-v, --verbose', 'verbosity that can be increased', increaseVerbosity, 0)
+.parse(process.argv);
 
 new Promise(async (resolve, reject) => {
   // do a thing, possibly async, then…
-  const retCode =  await require(`../${dev ? 'src' : 'lib'}`).run();
+  const theApp = require('../lib');
+  console.log('verbose', program.verbose);
+  const retCode =  await theApp.run();
   if (0 === retCode) {
     console.log('inquirer succeed!');
     resolve(0);

@@ -40,7 +40,9 @@
   },
   "homepage": "https://github.com/holytiny/inquirer#readme",
   "dependencies": {
+    "commander": "6.2.0",
     "enquirer": "2.3.6",
+    "js-logger": "1.6.1",
     "yaml": "1.10.0"
   },
   "devDependencies": {
