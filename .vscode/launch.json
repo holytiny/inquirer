@@ -14,7 +14,7 @@
             "runtimeExecutable": "/Users/enderson/.nvm/versions/node/v14.15.1/bin/node",
             "program": "${workspaceFolder}/bin/run",
             "args": [
-                "-f"
+                "-v"
             ],
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
