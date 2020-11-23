@@ -15,18 +15,20 @@ program
 .option('-v, --verbose', 'verbosity that can be increased', increaseVerbosity, 0)
 .parse(process.argv);
 
+const theApp = require('../lib');
+theApp.setLoggerLevel(program.verbose);
+
 new Promise(async (resolve, reject) => {
   // do a thing, possibly async, then…
-  const theApp = require('../lib');
-  console.log('verbose', program.verbose);
+  theApp.logger.debug('verbose', program.verbose);
   const retCode =  await theApp.run();
   if (0 === retCode) {
-    console.log('inquirer succeed!');
     resolve(0);
   } else {
     reject(new Error(`${retCode}`));
   }
 })
 .catch( error => {
-  console.log(`inquirer quit: `, error.message);
+  theApp.logger.info(`inquirer quit: `, error.message);
+  theApp.logger.trace(error.message);
 })
