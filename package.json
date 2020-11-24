@@ -16,12 +16,7 @@
   "scripts": {
     "start": "launch",
     "pretest": "rm -rf test/dist/*",
-    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
-    "preversion": "npm test",
-    "version": "oclif-dev readme && git add README.md",
-    "lint:fix": "eslint . --ext .ts --config .eslintrc --fix"
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
   },
   "repository": {
     "type": "git",
