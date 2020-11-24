@@ -1,0 +1,8 @@
+{
+  "DEVELOPER_NAME": "sake",
+  "DEVELOP_IMAGES": {
+    "vdevice": true,
+    "backend": true,
+    "frontend": false
+  }
+}
